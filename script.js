@@ -25,7 +25,11 @@ function readPDF() {
                     } else {
                         readAloud(text);
                     }
+                }).catch(function(error) {
+                    console.error('Error extracting text:', error);
                 });
+            }).catch(function(error) {
+                console.error('Error loading PDF:', error);
             });
         };
         reader.readAsArrayBuffer(file);
@@ -94,6 +98,8 @@ function performOCR(pdf, pdfViewer) {
     Promise.all(pagesPromises).then(function(pagesText) {
         const text = pagesText.join(' ');
         readAloud(text);
+    }).catch(function(error) {
+        console.error('Error performing OCR:', error);
     });
 }
 
